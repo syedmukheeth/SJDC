@@ -3,6 +3,56 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Button } from '../components/ui/Button';
 
+// Official SJDC Assets
+import logoPrimary from '../assets/img/logo-primary.png';
+import logoFooter from '../assets/img/logo-footer.png';
+import heroBanner from '../assets/img/banner/4.jpg';
+import coursesBCA from '../assets/img/courses/mecs.jpg';
+import coursesBBA from '../assets/img/courses/bbc.jpg';
+import coursesBCom from '../assets/img/courses/bcom.jpg';
+import courseMPC from '../assets/img/courses/mpcs.jpg';
+import courseMBC from '../assets/img/courses/mbc.jpg';
+import courseMECS from '../assets/img/courses/mecs.jpg';
+
+const courses = [
+  {
+    name: 'BCA',
+    full: 'Bachelor of Computer Applications',
+    img: coursesBCA,
+    desc: 'A tech-forward program designed for future software engineers, data scientists, and digital entrepreneurs.',
+  },
+  {
+    name: 'BBA',
+    full: 'Bachelor of Business Administration',
+    img: coursesBBA,
+    desc: 'Build leadership and managerial skills for the corporate world through practical and industry-driven coursework.',
+  },
+  {
+    name: 'B.Com',
+    full: 'Bachelor of Commerce',
+    img: coursesBCom,
+    desc: 'A comprehensive commerce education covering accounting, finance, and trade to launch a thriving career.',
+  },
+  {
+    name: 'MPC',
+    full: 'Maths, Physics & Chemistry',
+    img: courseMPC,
+    desc: 'A rigorous science stream preparing students for engineering and technology careers.',
+  },
+  {
+    name: 'MBC',
+    full: 'Maths, Biology & Chemistry',
+    img: courseMBC,
+    desc: 'The ideal blend of biology and physical sciences for aspiring medical and life-science professionals.',
+  },
+  {
+    name: 'MECS',
+    full: 'Maths, Economics, Commerce & Science',
+    img: courseMECS,
+    desc: 'An interdisciplinary program for students aiming at finance, economics, and analytical career paths.',
+  },
+];
+
 const Home = () => {
   const { user, role } = useAuth();
 
@@ -12,129 +62,234 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <div className="text-2xl font-black text-primary tracking-tighter">
-          SJDC<span className="text-accent">.</span>
-        </div>
-        <div className="hidden md:flex items-center space-x-8 text-sm font-bold text-gray-600 uppercase tracking-widest">
-          <a href="#about" className="hover:text-primary transition-colors">About</a>
-          <a href="#courses" className="hover:text-primary transition-colors">Courses</a>
-          <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
-        </div>
-        <div>
-          {user ? (
-            <Link to={getDashboardPath()}>
-              <Button className="px-8 shadow-xl shadow-primary/20">Go to Dashboard</Button>
-            </Link>
-          ) : (
-            <Link to="/login">
-              <Button className="px-8 shadow-xl shadow-primary/20">Portal Login</Button>
-            </Link>
-          )}
+    <div className="min-h-screen bg-white font-sans">
+
+      {/* ── Navigation ── */}
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <div className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
+          <Link to="/">
+            <img
+              src={logoPrimary}
+              alt="SJDC Logo"
+              className="h-12 object-contain"
+            />
+          </Link>
+          <div className="hidden md:flex items-center space-x-8 text-sm font-bold text-gray-600 uppercase tracking-widest">
+            <a href="#about" className="hover:text-primary transition-colors">About</a>
+            <a href="#courses" className="hover:text-primary transition-colors">Courses</a>
+            <a href="#faculty" className="hover:text-primary transition-colors">Faculty</a>
+            <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+          </div>
+          <div>
+            {user ? (
+              <Link to={getDashboardPath()}>
+                <Button className="px-8 shadow-xl shadow-primary/20">Go to Dashboard</Button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <Button className="px-8 shadow-xl shadow-primary/20">Portal Login</Button>
+              </Link>
+            )}
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 bg-accent/10 rounded-full">
-              <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-              <span className="text-[10px] font-black text-accent uppercase tracking-widest">Admissions Open 2026</span>
+      {/* ── Hero Section ── */}
+      <section className="relative h-[90vh] min-h-[600px] overflow-hidden">
+        {/* Background Banner Image */}
+        <img
+          src={heroBanner}
+          alt="SJDC Campus"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
+
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 h-full flex items-center">
+          <div className="space-y-8 animate-fade-in max-w-2xl">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-secondary/20 border border-secondary/40 rounded-full backdrop-blur-sm">
+              <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
+              <span className="text-[11px] font-black text-secondary uppercase tracking-widest">Admissions Open 2026–27</span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-black text-primary leading-[0.9] tracking-tighter">
-              Empowering <br /> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Next-Gen</span> <br />
+            <h1 className="text-5xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter drop-shadow-lg">
+              Empowering <br />
+              <span className="text-secondary">Next-Gen</span> <br />
               Leaders.
             </h1>
-            <p className="text-xl text-gray-500 max-w-md font-medium leading-relaxed">
-              St. Joseph's Degree College provides a transformative educational experience focused on innovation, discipline, and excellence.
+            <p className="text-lg text-white/80 max-w-md font-medium leading-relaxed">
+              St. Joseph's Degree College, Kurnool — where innovation, discipline, and excellence converge to shape tomorrow's changemakers.
             </p>
-            <div className="flex items-center space-x-4 pt-4">
-              <Button className="px-10 py-4 text-lg shadow-2xl shadow-primary/30">Apply Now</Button>
-              <Button variant="outline" className="px-10 py-4 text-lg">Explore Courses</Button>
+            <div className="flex items-center space-x-4 pt-2">
+              <a href="#courses">
+                <Button className="px-10 py-4 text-lg shadow-2xl shadow-black/30">Explore Programs</Button>
+              </a>
+              <Link to="/login">
+                <Button variant="outline" className="px-10 py-4 text-lg border-white text-white hover:bg-white/10">
+                  Student Login
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className="relative md:h-[600px] bg-gray-100 rounded-[40px] overflow-hidden shadow-2xl animate-in slide-in-from-right duration-1000">
-             {/* Placeholder for Hero Image */}
-             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
-             <div className="absolute bottom-8 left-8 right-8 bg-white/80 backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-2xl">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center text-white font-black text-xl">98%</div>
-                  <div>
-                    <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Placement Success</p>
-                    <p className="text-sm font-bold text-gray-800">Top Multi-National Companies</p>
-                  </div>
-                </div>
-             </div>
-          </div>
         </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-primary text-white">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-          <div>
-            <p className="text-5xl font-black text-secondary mb-2">2500+</p>
-            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Students enrolled</p>
-          </div>
-          <div>
-            <p className="text-5xl font-black text-secondary mb-2">120+</p>
-            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Expert Faculty</p>
-          </div>
-          <div>
-            <p className="text-5xl font-black text-secondary mb-2">15+</p>
-            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Global Partners</p>
-          </div>
-          <div>
-            <p className="text-5xl font-black text-secondary mb-2">A++</p>
-            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">NAAC Accredited</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Courses Section */}
-      <section id="courses" className="py-32 max-w-7xl mx-auto px-8">
-        <div className="text-center mb-20 space-y-4">
-          <p className="text-xs font-black text-accent uppercase tracking-[0.2em]">Academic Excellence</p>
-          <h2 className="text-5xl font-black text-primary tracking-tighter">Premier Degree Programs</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {['BCA', 'BBA', 'B.Com'].map((course) => (
-            <div key={course} className="group p-10 bg-gray-50 rounded-[40px] border-2 border-transparent hover:border-accent/20 hover:bg-white hover:shadow-2xl transition-all duration-500">
-              <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center text-2xl font-black text-primary mb-8 group-hover:scale-110 transition-transform">
-                {course.charAt(0)}
-              </div>
-              <h3 className="text-2xl font-black text-gray-800 mb-4">{course}</h3>
-              <p className="text-gray-500 font-medium leading-relaxed mb-8">
-                In-depth curriculum designed for modern industry standards and practical skills.
-              </p>
-              <a href="#" className="text-sm font-black text-primary uppercase tracking-widest flex items-center group-hover:text-accent transition-colors">
-                Learn More 
-                <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-              </a>
+        {/* Stats Badge */}
+        <div className="absolute bottom-8 right-8 z-10 hidden md:flex items-center space-x-6 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl">
+          {[
+            { val: '2500+', label: 'Students' },
+            { val: '120+', label: 'Faculty' },
+            { val: 'A++', label: 'NAAC' },
+            { val: '50+', label: 'Years' },
+          ].map(({ val, label }) => (
+            <div key={label} className="text-center px-4 border-r border-white/20 last:border-0">
+              <p className="text-2xl font-black text-secondary">{val}</p>
+              <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest">{label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-50 py-20 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-8 text-center space-y-8">
-          <div className="text-3xl font-black text-primary tracking-tighter">
-            SJDC<span className="text-accent">.</span>
+      {/* ── Stats Strip ── */}
+      <section className="py-16 bg-primary text-white">
+        <div className="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+          {[
+            { val: '2500+', label: 'Students Enrolled' },
+            { val: '120+', label: 'Expert Faculty' },
+            { val: '15+', label: 'Global Partners' },
+            { val: 'A++', label: 'NAAC Accredited' },
+          ].map(({ val, label }) => (
+            <div key={label}>
+              <p className="text-5xl font-black text-secondary mb-2">{val}</p>
+              <p className="text-xs font-black text-white/50 uppercase tracking-widest">{label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── About Section ── */}
+      <section id="about" className="py-32 max-w-7xl mx-auto px-8">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="space-y-6">
+            <p className="text-xs font-black text-accent uppercase tracking-[0.2em]">Our Legacy</p>
+            <h2 className="text-5xl font-black text-primary tracking-tighter leading-tight">
+              50+ Years of <br />Academic Excellence
+            </h2>
+            <p className="text-gray-500 leading-relaxed text-lg">
+              Founded on the principles of integrity and innovation, St. Joseph's Degree College, Kurnool (SJDC) is a premier institution affiliated with Yogi Vemana University. We have nurtured generations of leaders, scientists, and entrepreneurs.
+            </p>
+            <p className="text-gray-500 leading-relaxed">
+              Accredited <strong className="text-primary">A++ by NAAC</strong>, SJDC offers a holistic education that goes beyond textbooks — fostering critical thinking, leadership, and social responsibility.
+            </p>
+            <a href="#courses">
+              <Button variant="outline" className="mt-4">Explore Our Programs →</Button>
+            </a>
           </div>
-          <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
-            Leading the way in higher education through innovation, integrity, and inspiration.
-          </p>
-          <div className="flex justify-center space-x-6 text-gray-400">
-             {/* Social Links Placeholder */}
+          <div className="relative h-[480px] rounded-[40px] overflow-hidden shadow-2xl">
+            <img
+              src={heroBanner}
+              alt="SJDC Campus"
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+            <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-xl p-6 rounded-3xl shadow-xl">
+              <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Est. 1966 · Kurnool, A.P.</p>
+              <p className="font-bold text-primary text-lg">St. Joseph's Degree College</p>
+              <p className="text-sm text-gray-500">Affiliated with Yogi Vemana University</p>
+            </div>
           </div>
-          <p className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">
-            © 2026 St. Joseph's Degree College. All rights reserved.
+        </div>
+      </section>
+
+      {/* ── Courses Section ── */}
+      <section id="courses" className="py-32 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="text-center mb-20 space-y-4">
+            <p className="text-xs font-black text-accent uppercase tracking-[0.2em]">Academic Excellence</p>
+            <h2 className="text-5xl font-black text-primary tracking-tighter">Premier Degree Programs</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Choose from a wide range of UG programs, each designed to equip you with the skills and knowledge to excel in your chosen field.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {courses.map((course) => (
+              <div
+                key={course.name}
+                className="group bg-white rounded-[32px] overflow-hidden shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+              >
+                {/* Course Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={course.img}
+                    alt={course.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent" />
+                  <div className="absolute bottom-4 left-5">
+                    <span className="text-white text-2xl font-black">{course.name}</span>
+                  </div>
+                </div>
+                {/* Course Info */}
+                <div className="p-7 space-y-3">
+                  <p className="text-[10px] font-black text-accent uppercase tracking-widest">{course.full}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">{course.desc}</p>
+                  <a
+                    href="#contact"
+                    className="text-sm font-black text-primary uppercase tracking-widest flex items-center group-hover:text-accent transition-colors pt-2"
+                  >
+                    Enquire Now
+                    <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Contact / CTA Section ── */}
+      <section id="contact" className="py-32 bg-primary text-white">
+        <div className="max-w-4xl mx-auto px-8 text-center space-y-8">
+          <p className="text-xs font-black text-secondary uppercase tracking-[0.3em]">Get in Touch</p>
+          <h2 className="text-5xl font-black tracking-tighter leading-tight">
+            Ready to Begin Your <br />
+            <span className="text-secondary">Academic Journey?</span>
+          </h2>
+          <p className="text-white/70 text-lg max-w-xl mx-auto leading-relaxed">
+            Contact our admissions office or visit our campus in Kurnool. We're here to guide you every step of the way.
           </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link to="/login">
+              <Button className="bg-secondary text-primary hover:opacity-90 px-10 py-4 text-base font-black shadow-2xl">
+                Access Student Portal
+              </Button>
+            </Link>
+            <a href="tel:+918518221234">
+              <Button variant="outline" className="border-white text-white hover:bg-white/10 px-10 py-4 text-base">
+                📞 Call Admissions
+              </Button>
+            </a>
+          </div>
+          <div className="pt-8 border-t border-white/10 text-white/50 text-sm space-y-1">
+            <p>📍 8-3-5, Fort Road, Kurnool – 518 001, Andhra Pradesh, India</p>
+            <p>✉️ info@sjcknl.edu.in &nbsp;|&nbsp; 🌐 www.sjcknl.edu.in</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="bg-gray-950 py-16 border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+          <img
+            src={logoFooter}
+            alt="SJDC Footer Logo"
+            className="h-16 object-contain brightness-[2] invert"
+          />
+          <div className="text-center md:text-right space-y-2">
+            <p className="text-gray-400 text-sm">Leading the way in higher education through innovation, integrity, and inspiration.</p>
+            <p className="text-[10px] font-black text-gray-600 uppercase tracking-[0.3em]">
+              © 2026 St. Joseph's Degree College, Kurnool. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

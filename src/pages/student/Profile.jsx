@@ -5,6 +5,7 @@ import { Card, CardHeader, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { useToast } from '../../context/ToastContext';
+import studentAvatar from '../../assets/img/students/mukheeth.jpeg';
 
 const StudentProfile = () => {
   const { user } = useAuth();
@@ -64,13 +65,22 @@ const StudentProfile = () => {
         <CardContent>
           <form onSubmit={handleUpdate} className="space-y-6">
             <div className="flex items-center space-x-6 mb-8">
-              <div className="w-24 h-24 rounded-3xl bg-primary flex items-center justify-center text-white text-4xl font-black shadow-xl shadow-primary/20">
-                {profile?.name?.charAt(0).toUpperCase()}
+              <div className="relative w-24 h-24 rounded-3xl overflow-hidden shadow-xl shadow-primary/20 border-2 border-primary/10">
+                <img
+                  src={studentAvatar}
+                  alt={profile?.name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                />
+                <div className="absolute inset-0 bg-primary flex items-center justify-center text-white text-4xl font-black" style={{ display: 'none' }}>
+                  {profile?.name?.charAt(0).toUpperCase()}
+                </div>
               </div>
               <div>
                 <p className="text-sm font-black text-gray-400 uppercase tracking-widest">Student Identity</p>
                 <p className="text-xl font-bold text-gray-800">{profile?.name}</p>
                 <p className="text-xs text-gray-400 mt-1 italic">Verified Student of SJDC</p>
+                <span className="mt-2 inline-block px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-black uppercase tracking-widest rounded-full">Active</span>
               </div>
             </div>
 

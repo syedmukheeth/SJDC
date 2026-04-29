@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import logoPrimary from '../assets/img/logo-primary.png';
 
 const Layout = () => {
   const { user, role, signOut } = useAuth();
@@ -14,21 +15,21 @@ const Layout = () => {
 
   const navItems = {
     student: [
-      { name: 'Dashboard', path: '/student/dashboard' },
-      { name: 'Attendance History', path: '/student/history' },
-      { name: 'My Profile', path: '/student/profile' },
+      { name: 'Dashboard', path: '/student/dashboard', icon: '📊' },
+      { name: 'Attendance History', path: '/student/history', icon: '📅' },
+      { name: 'My Profile', path: '/student/profile', icon: '👤' },
     ],
     faculty: [
-      { name: 'Dashboard', path: '/faculty/dashboard' },
-      { name: 'Mark Attendance', path: '/faculty/mark' },
-      { name: 'Reports', path: '/faculty/reports' },
+      { name: 'Dashboard', path: '/faculty/dashboard', icon: '📊' },
+      { name: 'Mark Attendance', path: '/faculty/mark', icon: '✅' },
+      { name: 'Reports', path: '/faculty/reports', icon: '📈' },
     ],
     admin: [
-      { name: 'Dashboard', path: '/admin/dashboard' },
-      { name: 'Students', path: '/admin/students' },
-      { name: 'Subjects', path: '/admin/subjects' },
-      { name: 'Reports', path: '/admin/reports' },
-      { name: 'CMS', path: '/admin/cms' },
+      { name: 'Dashboard', path: '/admin/dashboard', icon: '📊' },
+      { name: 'Students', path: '/admin/students', icon: '🎓' },
+      { name: 'Subjects', path: '/admin/subjects', icon: '📚' },
+      { name: 'Reports', path: '/admin/reports', icon: '📈' },
+      { name: 'CMS', path: '/admin/cms', icon: '🛠️' },
     ],
   };
 
@@ -36,43 +37,79 @@ const Layout = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-primary text-white hidden md:flex flex-col">
-        <div className="p-6 text-xl font-bold border-b border-gray-700">
-          SJDC Portal
+      {/* ── Sidebar ── */}
+      <aside className="w-64 bg-primary text-white hidden md:flex flex-col shadow-2xl shadow-black/20">
+        {/* Logo */}
+        <div className="p-5 border-b border-white/10">
+          <Link to="/">
+            <img
+              src={logoPrimary}
+              alt="SJDC"
+              className="h-12 object-contain brightness-0 invert"
+            />
+          </Link>
         </div>
-        <nav className="flex-1 p-4 space-y-2">
+
+        {/* Role Badge */}
+        <div className="px-4 py-3 bg-white/5">
+          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">
+            {role} Portal
+          </span>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 p-4 space-y-1">
           {currentNav.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`block p-3 rounded-lg transition-colors ${
-                location.pathname === item.path ? 'bg-secondary text-primary' : 'hover:bg-gray-700'
+              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-sm font-semibold ${
+                location.pathname === item.path
+                  ? 'bg-secondary text-primary shadow-lg shadow-secondary/20'
+                  : 'text-white/70 hover:bg-white/10 hover:text-white'
               }`}
             >
-              {item.name}
+              <span className="text-base">{item.icon}</span>
+              <span>{item.name}</span>
             </Link>
           ))}
         </nav>
-        <div className="p-4 border-t border-gray-700">
-          <button 
+
+        {/* Bottom User Card */}
+        <div className="p-4 border-t border-white/10 space-y-3">
+          <div className="flex items-center space-x-3 px-2">
+            <div className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center text-primary font-black text-sm shadow-md">
+              {user?.email?.charAt(0).toUpperCase()}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-bold text-white truncate">{user?.email?.split('@')[0]}</p>
+              <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{role}</p>
+            </div>
+          </div>
+          <button
             onClick={handleLogout}
-            className="w-full p-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors font-semibold"
+            className="w-full py-2.5 bg-red-500/20 hover:bg-red-500/40 text-red-300 hover:text-white rounded-xl transition-all duration-200 text-xs font-black uppercase tracking-widest"
           >
             Logout
           </button>
         </div>
       </aside>
 
-      {/* Main Content */}
+      {/* ── Main Content ── */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Navbar */}
+        {/* Top Navbar */}
         <header className="h-16 bg-white shadow-sm flex items-center justify-between px-6 border-b border-gray-100">
-          <div className="md:hidden font-bold text-primary">SJDC Portal</div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+          {/* Mobile: show logo */}
+          <div className="md:hidden">
+            <img src={logoPrimary} alt="SJDC" className="h-9 object-contain" />
+          </div>
+          {/* Desktop: page breadcrumb */}
+          <div className="hidden md:flex items-center space-x-2">
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
             <span className="text-[10px] font-black uppercase text-gray-400 tracking-tighter">System Live</span>
           </div>
+
+          {/* User Info */}
           <div className="flex items-center space-x-4">
             <div className="text-right hidden sm:block">
               <p className="text-sm font-bold text-gray-800">{user?.email?.split('@')[0]}</p>
@@ -84,6 +121,7 @@ const Layout = () => {
           </div>
         </header>
 
+        {/* Page Content */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 text-gray-800">
           <Outlet />
         </main>

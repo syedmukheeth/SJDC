@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
+import logoPrimary from '../assets/img/logo-primary.png';
+import heroBanner from '../assets/img/banner/5.jpg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,9 +22,6 @@ const Login = () => {
 
     try {
       await signIn(email, password);
-      // The role will be updated by the AuthProvider, so we need to wait for it or navigate based on it
-      // For now, we'll use a small timeout or just let the app-wide redirection handle it if we have it in App.jsx
-      // But usually, it's better to navigate directly after role is known
     } catch (err) {
       setError(err.message || 'Failed to sign in. Please check your credentials.');
     } finally {
@@ -30,7 +29,6 @@ const Login = () => {
     }
   };
 
-  // React to role change for redirection
   React.useEffect(() => {
     if (role) {
       navigate(`/${role}/dashboard`, { replace: true });
@@ -38,54 +36,104 @@ const Login = () => {
   }, [role, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 space-y-6">
-        <div className="text-center">
-          <Link to="/" className="text-xs font-black text-accent uppercase tracking-widest hover:underline mb-4 inline-block">← Back to Website</Link>
-          <h1 className="text-3xl font-bold text-primary">SJDC Portal</h1>
-          <p className="text-gray-500 mt-2">Sign in to manage your attendance</p>
+    <div className="min-h-screen flex">
+      {/* ── Left Panel: Branding ── */}
+      <div
+        className="hidden lg:flex flex-col justify-between w-1/2 relative overflow-hidden"
+      >
+        {/* Background */}
+        <img
+          src={heroBanner}
+          alt="SJDC Campus"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/80 to-primary/50" />
+
+        {/* Top Logo */}
+        <div className="relative z-10 p-10">
+          <Link to="/">
+            <img src={logoPrimary} alt="SJDC" className="h-16 object-contain brightness-0 invert" />
+          </Link>
         </div>
 
-        {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg text-sm border border-red-100 animate-shake">
-            {error}
+        {/* Center Copy */}
+        <div className="relative z-10 px-12 pb-12 space-y-6">
+          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-secondary/20 border border-secondary/40 rounded-full">
+            <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
+            <span className="text-[11px] font-black text-secondary uppercase tracking-widest">Secure Portal Access</span>
           </div>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-4">
-          <Input
-            label="Email Address"
-            type="email"
-            placeholder="student@sjcknl.edu.in"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <Input
-            label="Password"
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          
-          <Button 
-            type="submit" 
-            className="w-full py-3" 
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Signing in...' : 'Sign In'}
-          </Button>
-        </form>
-
-        <div className="text-center space-y-2">
-          <p className="text-sm text-gray-400">
-            St. Joseph's Degree College, Kurnool
+          <h1 className="text-4xl font-black text-white leading-tight tracking-tight">
+            Your Academic <br />
+            <span className="text-secondary">Records. Secured.</span>
+          </h1>
+          <p className="text-white/70 leading-relaxed">
+            Access your attendance, courses, and academic profile — all in one place, secured by role-based authentication.
           </p>
-          <div className="pt-4 border-t border-gray-50">
-            <p className="text-xs text-gray-400 italic">
-              Testing Tip: Use the credentials from your Supabase Auth dashboard.
+          <div className="pt-4 border-t border-white/10 space-y-2 text-white/50 text-xs">
+            <p>📍 Fort Road, Kurnool – 518 001, Andhra Pradesh</p>
+            <p>🌐 www.sjcknl.edu.in</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Right Panel: Login Form ── */}
+      <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-8">
+        {/* Mobile Logo */}
+        <Link to="/" className="lg:hidden mb-8">
+          <img src={logoPrimary} alt="SJDC" className="h-14 object-contain" />
+        </Link>
+
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border border-gray-100 p-10 space-y-7">
+          <div className="text-center space-y-1">
+            <Link to="/" className="text-xs font-black text-accent uppercase tracking-widest hover:underline inline-block mb-4">
+              ← Back to Website
+            </Link>
+            <h2 className="text-3xl font-black text-primary tracking-tight">Portal Login</h2>
+            <p className="text-gray-400 text-sm">Sign in to manage your attendance</p>
+          </div>
+
+          {error && (
+            <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm border border-red-100 animate-shake">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            <Input
+              label="Email Address"
+              type="email"
+              id="login-email"
+              placeholder="student@sjcknl.edu.in"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Input
+              label="Password"
+              type="password"
+              id="login-password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            
+            <Button
+              type="submit"
+              id="login-submit"
+              className="w-full py-3"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Signing in...' : 'Sign In'}
+            </Button>
+          </form>
+
+          <div className="text-center space-y-3 pt-2 border-t border-gray-50">
+            <p className="text-sm text-gray-400">
+              St. Joseph's Degree College, Kurnool
+            </p>
+            <p className="text-xs text-gray-300 italic">
+              For credentials, contact your administrator.
             </p>
           </div>
         </div>
