@@ -3,6 +3,10 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import logoPrimary from '../assets/img/logo-primary.png';
 
+// Creator Portraits
+import creatorMukheeth from '../assets/img/students/mukheeth.jpeg';
+import creatorFarooq from '../assets/img/students/farooq.jpeg';
+
 const Layout = () => {
   const { user, role, signOut } = useAuth();
   const location = useLocation();
@@ -92,6 +96,35 @@ const Layout = () => {
           >
             Logout
           </button>
+        </div>
+
+        {/* Developed By */}
+        <div className="px-6 pb-6 pt-2 space-y-3">
+          <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em]">Developed by</p>
+          <div className="flex flex-col space-y-2">
+            <a 
+              href="https://www.linkedin.com/in/syedmukheeth/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center space-x-2 transition-all duration-200"
+            >
+              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/5 group-hover:border-secondary transition-colors shrink-0">
+                <img src={creatorMukheeth} alt="Syed Mukheeth" className="w-full h-full object-cover object-[center_10%]" />
+              </div>
+              <span className="text-[9px] font-bold text-white/30 group-hover:text-secondary transition-colors">Syed Mukheeth</span>
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/farooq-shaik-50a511354" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center space-x-2 transition-all duration-200"
+            >
+              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/5 group-hover:border-secondary transition-colors shrink-0">
+                <img src={creatorFarooq} alt="Farooq Shaik" className="w-full h-full object-cover object-[center_15%]" />
+              </div>
+              <span className="text-[9px] font-bold text-white/30 group-hover:text-secondary transition-colors">Farooq Shaik</span>
+            </a>
+          </div>
         </div>
       </aside>
 

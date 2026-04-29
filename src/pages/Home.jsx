@@ -14,6 +14,10 @@ import courseMPC from '../assets/img/courses/mpcs.jpg';
 import courseMBC from '../assets/img/courses/mbc.jpg';
 import courseMECS from '../assets/img/courses/mecs.jpg';
 
+// Creator Portraits
+import creatorMukheeth from '../assets/img/students/mukheeth.jpeg';
+import creatorFarooq from '../assets/img/students/farooq.jpeg';
+
 // Department Head Portraits
 import facultyPrincipal from '../assets/img/Head-persons/1.jpg';
 import facultyCSHOD from '../assets/img/Head-persons/ComputerScience_SLathaRani.jpg';
@@ -405,10 +409,52 @@ const Home = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/5 py-6">
-          <p className="text-center text-[10px] font-black text-gray-600 uppercase tracking-[0.3em]">
-            © 2026 St. Joseph's Degree College, Kurnool. All rights reserved.
-          </p>
+        <div className="border-t border-white/5 py-8">
+          <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+            <p className="text-[10px] font-black text-gray-600 uppercase tracking-[0.3em] text-center md:text-left">
+              © 2026 St. Joseph's Degree College, Kurnool. All rights reserved.
+            </p>
+            
+            <div className="flex items-center space-x-6">
+              <span className="text-[10px] font-black text-gray-700 uppercase tracking-[0.2em]">Developed by</span>
+              
+              {/* Creator 1: Syed Mukheeth */}
+              <a 
+                href="https://www.linkedin.com/in/syedmukheeth/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center space-x-3 transition-all duration-300"
+              >
+                <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 group-hover:border-secondary transition-colors shrink-0">
+                  <img 
+                    src={creatorMukheeth} 
+                    alt="Syed Mukheeth" 
+                    className="w-full h-full object-cover object-[center_10%] group-hover:scale-110 transition-transform duration-500" 
+                  />
+                </div>
+                <span className="text-[10px] font-black text-gray-500 group-hover:text-secondary uppercase tracking-widest">Syed Mukheeth</span>
+              </a>
+
+              <div className="w-px h-4 bg-white/5" />
+
+              {/* Creator 2: Farooq Shaik */}
+              <a 
+                href="https://www.linkedin.com/in/farooq-shaik-50a511354" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center space-x-3 transition-all duration-300"
+              >
+                <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 group-hover:border-secondary transition-colors shrink-0">
+                  <img 
+                    src={creatorFarooq} 
+                    alt="Farooq Shaik" 
+                    className="w-full h-full object-cover object-[center_15%] group-hover:scale-110 transition-transform duration-500" 
+                  />
+                </div>
+                <span className="text-[10px] font-black text-gray-500 group-hover:text-secondary uppercase tracking-widest">Farooq Shaik</span>
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
