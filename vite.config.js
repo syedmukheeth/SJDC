@@ -8,4 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    allowedHosts: ['negotiation-overcome-keith-packet.trycloudflare.com'],
+  },
 })

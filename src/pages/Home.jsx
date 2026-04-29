@@ -14,6 +14,16 @@ import courseMPC from '../assets/img/courses/mpcs.jpg';
 import courseMBC from '../assets/img/courses/mbc.jpg';
 import courseMECS from '../assets/img/courses/mecs.jpg';
 
+// Department Head Portraits
+import facultyPrincipal from '../assets/img/Head-persons/1.jpg';
+import facultyCSHOD from '../assets/img/Head-persons/ComputerScience_SLathaRani.jpg';
+import facultyEnglish from '../assets/img/Head-persons/English_P_Shahnaz.jpg';
+import facultyMaths from '../assets/img/Head-persons/Mathematics_T_MohanReddy.jpg';
+import facultyPhysics from '../assets/img/Head-persons/Physics_DrKSRChandarSekharRao.jpg';
+import facultyCommerce from '../assets/img/Head-persons/Nagaraju(commerece).jpg';
+import facultyIT from '../assets/img/Head-persons/Satyanarayana(IT).jpg';
+import facultyLibrary from '../assets/img/Head-persons/Library_SRafia.jpg';
+
 const courses = [
   {
     name: 'BCA',
@@ -246,6 +256,59 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ── Faculty Section ── */}
+      <section id="faculty" className="py-32 max-w-7xl mx-auto px-8">
+        <div className="text-center mb-20 space-y-4">
+          <p className="text-xs font-black text-accent uppercase tracking-[0.2em]">Our People</p>
+          <h2 className="text-5xl font-black text-primary tracking-tighter">Meet Our Department Heads</h2>
+          <p className="text-gray-500 max-w-xl mx-auto">
+            Led by experienced academics and industry experts, our faculty brings decades of research and practical knowledge to shape every student's journey.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {[
+            { img: facultyPrincipal,  name: 'Dr. Principal',           dept: 'Principal & Management' },
+            { img: facultyCSHOD,      name: 'S. Latha Rani',           dept: 'Computer Science HOD' },
+            { img: facultyMaths,      name: 'T. Mohan Reddy',          dept: 'Mathematics HOD' },
+            { img: facultyPhysics,    name: 'Dr. K.S.R. Chandar Sekhar', dept: 'Physics HOD' },
+            { img: facultyEnglish,    name: 'P. Shahnaz',              dept: 'English HOD' },
+            { img: facultyCommerce,   name: 'Nagaraju',                dept: 'Commerce HOD' },
+            { img: facultyIT,         name: 'Satyanarayana',           dept: 'Information Technology' },
+            { img: facultyLibrary,    name: 'S. Rafia',                dept: 'Librarian' },
+          ].map(({ img, name, dept }) => (
+            <div
+              key={name}
+              className="group text-center space-y-4"
+            >
+              {/* Portrait */}
+              <div className="relative mx-auto w-full aspect-square rounded-3xl overflow-hidden shadow-lg group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500">
+                <img
+                  src={img}
+                  alt={name}
+                  className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              {/* Info */}
+              <div>
+                <p className="font-black text-gray-800 text-sm">{name}</p>
+                <p className="text-[10px] font-bold text-accent uppercase tracking-widest mt-0.5">{dept}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Strip */}
+        <div className="mt-20 bg-primary/5 border border-primary/10 rounded-3xl p-10 text-center space-y-4">
+          <p className="text-xs font-black text-accent uppercase tracking-[0.2em]">120+ Expert Faculty</p>
+          <h3 className="text-3xl font-black text-primary tracking-tight">Guided by the Best in the Field</h3>
+          <p className="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
+            Our faculty holds advanced degrees from premier institutions and brings real-world experience to the classroom — ensuring every student is industry-ready.
+          </p>
+        </div>
+      </section>
+
       {/* ── Contact / CTA Section ── */}
       <section id="contact" className="py-32 bg-primary text-white">
         <div className="max-w-4xl mx-auto px-8 text-center space-y-8">
@@ -277,19 +340,75 @@ const Home = () => {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="bg-gray-950 py-16 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-8">
-          <img
-            src={logoFooter}
-            alt="SJDC Footer Logo"
-            className="h-16 object-contain brightness-[2] invert"
-          />
-          <div className="text-center md:text-right space-y-2">
-            <p className="text-gray-400 text-sm">Leading the way in higher education through innovation, integrity, and inspiration.</p>
-            <p className="text-[10px] font-black text-gray-600 uppercase tracking-[0.3em]">
-              © 2026 St. Joseph's Degree College, Kurnool. All rights reserved.
+      <footer className="bg-gray-950 border-t border-white/5">
+        {/* Main Footer Grid */}
+        <div className="max-w-7xl mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+
+          {/* Brand Column */}
+          <div className="space-y-5">
+            <img
+              src={logoPrimary}
+              alt="SJDC Logo"
+              className="h-14 object-contain"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
+            <p className="text-gray-400 text-sm leading-relaxed">
+              St. Joseph's Degree College, Kurnool — shaping futures through knowledge, integrity, and excellence since 1966.
+            </p>
+            <p className="inline-flex items-center space-x-2 px-3 py-1 bg-secondary/10 border border-secondary/20 rounded-full text-[10px] font-black text-secondary uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 bg-secondary rounded-full animate-pulse inline-block" />
+              <span>NAAC A++ Accredited</span>
             </p>
           </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">Quick Links</p>
+            <ul className="space-y-3 text-sm">
+              {[
+                { label: 'About Us', href: '#about' },
+                { label: 'Courses & Programs', href: '#courses' },
+                { label: 'Student Portal', href: '/login' },
+                { label: 'Contact Admissions', href: '#contact' },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="text-gray-400 hover:text-secondary transition-colors font-medium flex items-center space-x-2"
+                  >
+                    <span className="text-gray-700">›</span>
+                    <span>{label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="space-y-4">
+            <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">Contact Us</p>
+            <ul className="space-y-3 text-sm text-gray-400">
+              <li className="flex items-start space-x-2">
+                <span>📍</span>
+                <span>8-3-5, Fort Road, Kurnool – 518 001, Andhra Pradesh, India</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <span>✉️</span>
+                <span>info@sjcknl.edu.in</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <span>🌐</span>
+                <span>www.sjcknl.edu.in</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-white/5 py-6">
+          <p className="text-center text-[10px] font-black text-gray-600 uppercase tracking-[0.3em]">
+            © 2026 St. Joseph's Degree College, Kurnool. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
