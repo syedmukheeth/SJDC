@@ -1,16 +1,100 @@
-# React + Vite
+# 🏛️ SJDC Attendance Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, full-stack college attendance management platform built with **React (Vite)** and **Supabase**. This system provides a seamless experience for students, faculty, and administrators to track and manage academic attendance with real-time analytics.
 
-Currently, two official plugins are available:
+![SJDC Banner](https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?auto=format&fit=crop&q=80&w=2070)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 Key Features
 
-## React Compiler
+### 🎓 Student Portal
+- **Dashboard**: Real-time attendance percentage tracking and quick stats.
+- **Subject Analysis**: Breakdown of attendance per subject with progress bars.
+- **Attendance History**: Detailed logs with date-wise filtering.
+- **Profile Management**: View and update academic profile information.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 👨‍🏫 Faculty Portal
+- **Dashboard**: Overview of assigned subjects and recent activities.
+- **Smart Marking**: Attendance marking with bulk actions (Mark All Present/Absent).
+- **Duplicate Prevention**: Built-in logic to prevent multiple entries for the same date/subject.
+- **Analytics**: Subject-wise performance reports and defaulter identification.
 
-## Expanding the ESLint configuration
+### 👑 Admin Portal
+- **Command Center**: System-wide statistics (Total Students, Subjects, Avg Attendance).
+- **User Management**: Full CRUD operations for Students and Faculty.
+- **Curriculum Management**: Manage courses and subjects.
+- **Reporting Engine**: Automated "Defaulter" reports for students below 75% attendance.
+- **CMS**: Dynamic Website Content Management to update news and hero sections.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19 (Vite)
+- **Styling**: Tailwind CSS v4 (Modern Engine)
+- **Backend/Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth (RBAC - Role Based Access Control)
+- **Routing**: React Router 7
+- **Notifications**: Custom Global Toast System
+
+---
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+- Node.js (v18 or higher)
+- A Supabase account
+
+### 2. Installation
+```bash
+# Clone the repository
+git clone https://github.com/syedmukheeth/SJDC.git
+
+# Install dependencies
+npm install
+```
+
+### 3. Environment Setup
+Create a `.env` file in the root directory and add your Supabase credentials:
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### 4. Database Initialization
+Run the provided `schema.sql` in your Supabase SQL Editor to set up the tables, indexes, and RLS policies.
+
+### 5. Running the App
+```bash
+npm run dev
+```
+
+---
+
+## 📁 Project Structure
+
+```text
+src/
+├── components/       # Reusable UI components (Buttons, Cards, Modals)
+├── context/          # Auth & Toast Notification Providers
+├── hooks/            # Custom hooks (useAuth)
+├── lib/              # Supabase Client configuration
+├── pages/            # Role-based portals (Student, Faculty, Admin)
+├── utils/            # Constants and helper functions
+└── index.css         # Tailwind v4 Theme & Global Styles
+```
+
+---
+
+## 🛡️ Security
+- **Role-Based Access**: Pages are protected via a `ProtectedRoute` wrapper.
+- **RLS Policies**: Row Level Security ensures students can only see their own data, while faculty see assigned data.
+- **Encrypted Auth**: Handled securely via Supabase Auth.
+
+---
+
+## 📄 License
+This project is for academic purposes. [St. Joseph's Degree College, Kurnool]
+
+---
+
+**Developed with ❤️ for SJDC**
