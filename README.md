@@ -92,6 +92,23 @@ src/
 
 ---
 
+## 🤝 Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+**Coding Standards:**
+- Use **Tailwind CSS v4** for all styling.
+- Follow the established **Context Provider** pattern for state management.
+- Ensure all new components are mobile-responsive.
+
+---
+
 ## 📄 License
 This project is for academic purposes. [St. Joseph's Degree College, Kurnool]
 
