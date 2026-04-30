@@ -9,6 +9,6 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    allowedHosts: ['negotiation-overcome-keith-packet.trycloudflare.com'],
+    allowedHosts: ['.trycloudflare.com'],
   },
 })
