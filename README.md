@@ -2,7 +2,7 @@
 
 A comprehensive, full-stack academic management platform designed for modern educational institutions. Built with React (Vite) and Supabase, this system provides a secure and scalable environment for students, faculty, and administrators to monitor and manage academic engagement with precision.
 
-![SJDC Banner](https://images.unsplash.com/photo-1541339907198-e08759dfc3ef?auto=format&fit=crop&q=80&w=2070)
+![SJDC Banner](src/assets/img/banner/4.jpg)
 
 ## System Overview
 
@@ -78,6 +78,15 @@ The platform implements a multi-layered security strategy to protect institution
 - **Relational Access Control**: Row Level Security (RLS) ensures granular data isolation at the database level.
 - **Role Verification**: Middleware-level protection prevents unauthorized access to administrative and faculty resources.
 - **Encrypted Communication**: Secure handling of authentication tokens and session management.
+
+---
+
+## Development Team
+
+This platform was architected and developed by:
+
+- **Syed Mukheeth** ([LinkedIn](https://www.linkedin.com/in/syedmukheeth/))
+- **Farooq Shaik** ([LinkedIn](https://www.linkedin.com/in/farooq-shaik-50a511354))
 
 ---
 
