@@ -5,6 +5,7 @@ import { Card, CardContent } from '../../components/ui/Card';
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
     students: 0,
+    faculty: 0,
     subjects: 0,
     attendanceRate: 0
   });
@@ -23,7 +24,12 @@ const AdminDashboard = () => {
         .from('students')
         .select('*', { count: 'exact', head: true });
 
-      // 2. Total Subjects
+      // 2. Total Faculty
+      const { count: facultyCount } = await supabase
+        .from('faculty')
+        .select('*', { count: 'exact', head: true });
+
+      // 3. Total Subjects
       const { count: subjectCount } = await supabase
         .from('subjects')
         .select('*', { count: 'exact', head: true });
@@ -41,6 +47,7 @@ const AdminDashboard = () => {
 
       setStats({
         students: studentCount || 0,
+        faculty: facultyCount || 0,
         subjects: subjectCount || 0,
         attendanceRate: rate
       });
@@ -66,24 +73,31 @@ const AdminDashboard = () => {
         <p className="text-gray-500 mt-1">Global statistics for the SJDC Portal.</p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="bg-white shadow-lg shadow-blue-500/5">
           <CardContent className="p-8">
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Enrolled Students</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Students</p>
             <p className="text-5xl font-black mt-2 text-primary">{stats.students}</p>
           </CardContent>
         </Card>
 
         <Card className="bg-white shadow-lg shadow-blue-500/5">
           <CardContent className="p-8">
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Registered Subjects</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Faculty</p>
+            <p className="text-5xl font-black mt-2 text-gray-800">{stats.faculty}</p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-white shadow-lg shadow-blue-500/5">
+          <CardContent className="p-8">
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Subjects</p>
             <p className="text-5xl font-black mt-2 text-gray-800">{stats.subjects}</p>
           </CardContent>
         </Card>
 
         <Card className="bg-gradient-to-br from-accent to-emerald-600 text-white border-none shadow-xl shadow-accent/20">
           <CardContent className="p-8">
-            <p className="text-[10px] font-black text-emerald-100 uppercase tracking-widest">System-wide Attendance</p>
+            <p className="text-[10px] font-black text-emerald-100 uppercase tracking-widest">Avg Attendance</p>
             <p className="text-5xl font-black mt-2">{stats.attendanceRate}%</p>
           </CardContent>
         </Card>

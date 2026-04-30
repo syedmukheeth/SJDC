@@ -22,9 +22,15 @@ const Login = () => {
 
     try {
       await signIn(email, password);
+      // Wait for AuthProvider to update the role
+      setTimeout(() => {
+        if (!role) {
+          setError('Account authorized, but no portal profile found. This usually means your account exists but hasn\'t been assigned a role yet.');
+          setIsSubmitting(false);
+        }
+      }, 3000);
     } catch (err) {
       setError(err.message || 'Failed to sign in. Please check your credentials.');
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -124,7 +130,7 @@ const Login = () => {
               className="w-full py-3"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Signing in...' : 'Sign In'}
+              {isSubmitting ? (role ? 'Redirecting...' : 'Checking profile...') : 'Sign In'}
             </Button>
           </form>
 

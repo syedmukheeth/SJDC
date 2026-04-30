@@ -21,18 +21,22 @@ const Layout = () => {
     student: [
       { name: 'Dashboard', path: '/student/dashboard', icon: '📊' },
       { name: 'Attendance History', path: '/student/history', icon: '📅' },
+      { name: 'Study Hub', path: '/student/resources', icon: '📚' },
       { name: 'My Profile', path: '/student/profile', icon: '👤' },
     ],
     faculty: [
       { name: 'Dashboard', path: '/faculty/dashboard', icon: '📊' },
       { name: 'Mark Attendance', path: '/faculty/mark', icon: '✅' },
       { name: 'Reports', path: '/faculty/reports', icon: '📈' },
+      { name: 'Manage Hub', path: '/faculty/resources', icon: '📚' },
     ],
     admin: [
       { name: 'Dashboard', path: '/admin/dashboard', icon: '📊' },
       { name: 'Students', path: '/admin/students', icon: '🎓' },
+      { name: 'Faculty', path: '/admin/faculty', icon: '👨‍🏫' },
       { name: 'Subjects', path: '/admin/subjects', icon: '📚' },
       { name: 'Reports', path: '/admin/reports', icon: '📈' },
+      { name: 'Manage Hub', path: '/faculty/resources', icon: '📑' },
       { name: 'CMS', path: '/admin/cms', icon: '🛠️' },
     ],
   };
@@ -42,9 +46,9 @@ const Layout = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* ── Sidebar ── */}
-      <aside className="w-64 bg-primary text-white hidden md:flex flex-col shadow-2xl shadow-black/20">
+      <aside className="w-64 bg-primary text-white hidden md:flex flex-col shadow-2xl shadow-black/20 overflow-y-auto scrollbar-hide">
         {/* Logo */}
-        <div className="p-5 border-b border-white/10">
+        <div className="p-5 border-b border-white/10 shrink-0">
           <Link to="/">
             <img
               src={logoPrimary}
@@ -55,7 +59,7 @@ const Layout = () => {
         </div>
 
         {/* Role Badge */}
-        <div className="px-4 py-3 bg-white/5">
+        <div className="px-4 py-3 bg-white/5 shrink-0">
           <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">
             {role} Portal
           </span>
@@ -80,9 +84,9 @@ const Layout = () => {
         </nav>
 
         {/* Bottom User Card */}
-        <div className="p-4 border-t border-white/10 space-y-3">
+        <div className="p-4 border-t border-white/10 space-y-3 shrink-0">
           <div className="flex items-center space-x-3 px-2">
-            <div className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center text-primary font-black text-sm shadow-md">
+            <div className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center text-primary font-black text-sm shadow-md shrink-0">
               {user?.email?.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
@@ -99,8 +103,8 @@ const Layout = () => {
         </div>
 
         {/* Developed By */}
-        <div className="px-6 pb-6 pt-2 space-y-3">
-          <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em]">Developed by</p>
+        <div className="px-6 pb-6 pt-2 space-y-3 shrink-0 bg-black/10">
+          <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em]">Crafted by</p>
           <div className="flex flex-col space-y-2">
             <a 
               href="https://www.linkedin.com/in/syedmukheeth/" 

@@ -51,17 +51,20 @@ const CMS = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {content.length === 0 && (
           <div className="col-span-2 p-12 text-center border-2 border-dashed border-gray-200 rounded-3xl">
-            <p className="text-gray-400">No content found. Please initialize the `website_content` table.</p>
+            <p className="text-gray-400">No content found. Please check your database connection.</p>
           </div>
         )}
         
         {content.map((item) => (
-          <Card key={item.id}>
-            <CardHeader title={item.section} subtitle={`Page: ${item.page}`} />
+          <Card key={item.id} className="border-t-4 border-t-primary">
+            <CardHeader 
+              title={item.title || item.section} 
+              subtitle={`Location: ${item.metadata?.page || 'General'}`} 
+            />
             <CardContent>
               <div className="space-y-4">
                 <textarea 
-                  className="w-full h-32 px-4 py-3 border-2 border-gray-100 rounded-2xl outline-none focus:border-primary transition-all font-medium text-gray-700"
+                  className="w-full h-32 px-4 py-3 border-2 border-gray-100 rounded-2xl outline-none focus:border-primary transition-all font-medium text-gray-700 bg-gray-50/50"
                   value={item.content}
                   onChange={(e) => {
                     const newList = [...content];
@@ -83,11 +86,11 @@ const CMS = () => {
         ))}
       </div>
 
-      <Card className="bg-primary text-white">
+      <Card className="bg-primary/5 border-primary/10">
         <CardContent className="p-8 text-center space-y-4">
-          <h3 className="text-xl font-bold">Need to add new sections?</h3>
-          <p className="text-gray-400 text-sm">New content sections must be initialized in the database schema first.</p>
-          <Button variant="outline" className="border-gray-700 text-white hover:bg-gray-800">Contact Support</Button>
+          <h3 className="text-xl font-bold text-primary">Need to add new sections?</h3>
+          <p className="text-gray-500 text-sm">New content sections must be initialized in the database schema first.</p>
+          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white transition-all">Contact Developer</Button>
         </CardContent>
       </Card>
     </div>

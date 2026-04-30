@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useAuth } from '../../hooks/useAuth';
 import { Card, CardHeader, CardContent } from '../../components/ui/Card';
+import { useNavigate } from 'react-router-dom';
 
 const StudentDashboard = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [studentInfo, setStudentInfo] = useState(null);
   const [attendanceData, setAttendanceData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -129,6 +131,25 @@ const StudentDashboard = () => {
           <CardContent className="p-8">
             <p className="text-gray-400 text-sm font-bold uppercase tracking-widest">Present Count</p>
             <p className="text-5xl font-black mt-4 text-accent">{presentCount}</p>
+          </CardContent>
+        </Card>
+
+        {/* Study Hub Shortcut */}
+        <Card className="md:col-span-3 bg-white border-blue-100 hover:border-blue-300 transition-all cursor-pointer group" onClick={() => navigate('/student/resources')}>
+          <CardContent className="p-6 flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 text-2xl group-hover:scale-110 transition-transform">
+                📚
+              </div>
+              <div>
+                <p className="text-sm font-black text-gray-400 uppercase tracking-widest">Academic Resources</p>
+                <h3 className="text-xl font-black text-gray-800">Study Hub</h3>
+                <p className="text-xs text-gray-500 font-medium">Access syllabus, PYQs, and class notes instantly.</p>
+              </div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:translate-x-1 transition-transform">
+              →
+            </div>
           </CardContent>
         </Card>
       </div>

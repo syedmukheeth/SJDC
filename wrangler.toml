@@ -1,0 +1,8 @@
+name = "sjdc-portal"
+compatibility_date = "2026-04-30"
+pages_build_output_dir = "dist"
+
+[vars]
+# Add these in the Cloudflare Dashboard for security
+# VITE_SUPABASE_URL = "..."
+# VITE_SUPABASE_ANON_KEY = "..."

@@ -2,15 +2,15 @@ import React from 'react';
 
 export const Input = ({ label, error, className = '', ...props }) => {
   return (
-    <div className="space-y-1 w-full">
-      {label && <label className="block text-sm font-medium text-gray-700">{label}</label>}
+    <div className="space-y-2 w-full">
+      {label && <label className="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{label}</label>}
       <input
-        className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all ${
-          error ? 'border-red-500 ring-1 ring-red-500' : ''
+        className={`w-full px-5 py-4 bg-gray-50/50 border-2 border-gray-100 rounded-2xl outline-none focus:border-primary focus:bg-white focus:shadow-xl focus:shadow-primary/5 transition-all font-bold text-gray-700 placeholder:text-gray-300 ${
+          error ? 'border-red-500 bg-red-50' : ''
         } ${className}`}
         {...props}
       />
-      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+      {error && <p className="text-xs text-red-500 mt-1 font-bold">{error}</p>}
     </div>
   );
 };

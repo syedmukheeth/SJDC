@@ -34,18 +34,42 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchUserRole = async (userId) => {
-    // Check Admins table
-    const { data: admin } = await supabase.from('admins').select('role').eq('user_id', userId).single();
-    if (admin) return 'admin';
+    console.log('🔍 Fetching role for user ID:', userId);
+    
+    // Retry logic: sometimes RLS takes a moment to recognize the session
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        if (attempt > 1) {
+          console.log(`🔄 Retry attempt ${attempt}...`);
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
 
-    // Check Faculty table
-    const { data: faculty } = await supabase.from('faculty').select('id').eq('user_id', userId).single();
-    if (faculty) return 'faculty';
+        // Check Admins table
+        const { data: admin, error: adminErr } = await supabase.from('admins').select('role').eq('user_id', userId).maybeSingle();
+        if (admin) {
+          console.log('✅ Found in Admins table');
+          return 'admin';
+        }
 
-    // Check Students table
-    const { data: student } = await supabase.from('students').select('id').eq('user_id', userId).single();
-    if (student) return 'student';
+        // Check Faculty table
+        const { data: faculty, error: facultyErr } = await supabase.from('faculty').select('id').eq('user_id', userId).maybeSingle();
+        if (faculty) {
+          console.log('✅ Found in Faculty table');
+          return 'faculty';
+        }
 
+        // Check Students table
+        const { data: student, error: studentErr } = await supabase.from('students').select('id').eq('user_id', userId).maybeSingle();
+        if (student) {
+          console.log('✅ Found in Students table');
+          return 'student';
+        }
+      } catch (err) {
+        console.error(`❌ Attempt ${attempt} failed:`, err);
+      }
+    }
+
+    console.warn('⚠️ No profile found after retries for ID:', userId);
     return null;
   };
 
