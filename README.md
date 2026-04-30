@@ -1,8 +1,10 @@
 # St. Joseph's Degree College Attendance Management System
 
-A comprehensive, full-stack academic management platform designed for modern educational institutions. Built with React (Vite) and Supabase, this system provides a secure and scalable environment for students, faculty, and administrators to monitor and manage academic engagement with precision.
+<p align="center">
+  <img src="src/assets/img/logo-primary.png" alt="SJDC Logo" width="200" />
+</p>
 
-![SJDC Banner](src/assets/img/banner/4.jpg)
+A comprehensive, full-stack academic management platform designed for modern educational institutions. Built with React (Vite) and Supabase, this system provides a secure and scalable environment for students, faculty, and administrators to monitor and manage academic engagement with precision.
 
 ## System Overview
 
