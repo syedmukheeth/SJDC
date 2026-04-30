@@ -4,11 +4,28 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- 2. Create Students table
 CREATE TABLE students (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE, -- Link to Supabase Auth
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   course VARCHAR(50) NOT NULL,
   section VARCHAR(10) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 3. Create Faculty table
+CREATE TABLE faculty (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  name VARCHAR(100) NOT NULL,
+  department VARCHAR(100),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 4. Create Admins table
+CREATE TABLE admins (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  role VARCHAR(20) DEFAULT 'admin',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -40,6 +57,8 @@ CREATE INDEX idx_attendance_date ON attendance(date);
 
 -- 6. Enable Row Level Security (RLS)
 ALTER TABLE students ENABLE ROW LEVEL SECURITY;
+ALTER TABLE faculty ENABLE ROW LEVEL SECURITY;
+ALTER TABLE admins ENABLE ROW LEVEL SECURITY;
 ALTER TABLE subjects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE attendance ENABLE ROW LEVEL SECURITY;
 
