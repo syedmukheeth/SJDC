@@ -41,3 +41,33 @@
     scrollbar-width: none;
   }
 }
+
+@import "./styles/legacy-wrapper.css";
+
+/* Legacy Wrapper Styles */
+.legacy-wrapper .tab-pane {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.legacy-wrapper .tab-pane.active {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.legacy-wrapper .nav-tabs > li.active > a {
+  color: #fbbf24 !important; /* Amber-400 */
+  border-bottom: 2px solid #fbbf24 !important;
+  font-weight: 600;
+}
+
+.legacy-wrapper .profile-title li {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.legacy-wrapper .profile-title li:hover {
+  background: rgba(251, 191, 36, 0.1);
+}

@@ -1,0 +1,167 @@
+@reference "tailwindcss";
+
+/* 
+  Premium Legacy Wrapper Styles - Professional Edition
+  Overrides old static HTML with a high-end, responsive SJDC Digital Obsidian Theme.
+*/
+
+.legacy-wrapper {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full;
+  animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Typography Overhaul */
+.legacy-wrapper h1, 
+.legacy-wrapper h2, 
+.legacy-wrapper h3, 
+.legacy-wrapper h4 {
+  @apply font-black text-gray-900 tracking-tight mt-10 mb-6;
+}
+
+.legacy-wrapper h1 { @apply text-4xl md:text-6xl text-primary leading-tight font-black; }
+.legacy-wrapper h2 { @apply text-3xl md:text-5xl text-primary/95 border-l-8 border-secondary pl-6 py-2 bg-gray-50/50 rounded-r-2xl; }
+.legacy-wrapper h3 { @apply text-2xl md:text-3xl text-gray-800 border-b border-gray-100 pb-4 mb-8; }
+.legacy-wrapper h4 { @apply text-lg text-secondary uppercase tracking-[0.2em] font-black; }
+
+.legacy-wrapper p {
+  @apply text-base md:text-lg text-gray-600 leading-relaxed mb-8 font-medium max-w-4xl;
+}
+
+/* Professional Links */
+.legacy-wrapper a {
+  @apply text-primary font-bold hover:text-secondary transition-all duration-300 no-underline border-b-2 border-transparent hover:border-secondary pb-0.5;
+}
+
+/* Premium Glassmorphism Tables */
+.legacy-wrapper table {
+  @apply w-full text-left border-collapse bg-white rounded-3xl shadow-2xl shadow-gray-200/40 border border-gray-100 overflow-hidden my-12 relative z-10;
+}
+
+.legacy-wrapper thead {
+  @apply bg-primary text-white;
+}
+
+.legacy-wrapper th {
+  @apply px-8 py-6 font-black text-xs tracking-widest uppercase border-b border-primary/20 bg-primary/95 backdrop-blur-sm;
+}
+
+.legacy-wrapper td {
+  @apply px-8 py-6 text-sm md:text-base text-gray-700 border-b border-gray-50 font-medium align-middle;
+}
+
+.legacy-wrapper tbody tr {
+  @apply transition-colors duration-200;
+}
+
+.legacy-wrapper tbody tr:hover {
+  @apply bg-gray-50/80;
+}
+
+/* Responsive Image Handling */
+.legacy-wrapper img {
+  @apply rounded-3xl shadow-2xl shadow-gray-200/50 border border-gray-100 my-10 max-w-full h-auto object-cover transition-all duration-500 hover:scale-[1.01] hover:shadow-primary/10;
+}
+
+/* Layout Fallbacks for old Bootstrap - Grid 2.0 */
+.legacy-wrapper .container { @apply w-full max-w-none; }
+.legacy-wrapper .row { @apply flex flex-wrap -mx-4; }
+.legacy-wrapper [class^="col-"] { @apply px-4 w-full; }
+
+@media (min-width: 768px) {
+  .legacy-wrapper .col-md-6 { @apply w-1/2; }
+  .legacy-wrapper .col-md-4 { @apply w-1/3; }
+  .legacy-wrapper .col-md-8 { @apply w-2/3; }
+  .legacy-wrapper .col-md-3 { @apply w-1/4; }
+  .legacy-wrapper .col-md-12 { @apply w-full; }
+}
+
+/* Modern Dashboard Sidebar / Tabs */
+.legacy-wrapper .nav-tabs {
+  @apply flex flex-col gap-3 mb-12 border-none p-2 bg-gray-50/50 rounded-3xl border border-gray-100 backdrop-blur-md sticky top-24;
+}
+
+.legacy-wrapper .nav-tabs li {
+  @apply list-none pl-0 m-0 w-full;
+}
+
+.legacy-wrapper .nav-tabs li::before { @apply hidden; }
+
+.legacy-wrapper .nav-tabs li a {
+  @apply block w-full px-8 py-5 rounded-2xl bg-white/50 text-gray-600 font-black transition-all duration-300 border border-transparent text-left no-underline shadow-sm;
+}
+
+.legacy-wrapper .nav-tabs li a:hover {
+  @apply bg-white text-primary translate-x-1 shadow-lg shadow-gray-200/50 border-gray-100;
+}
+
+/* Active State - Premium */
+.legacy-wrapper .nav-tabs li.active a {
+  @apply bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-[1.02] translate-x-2 ring-4 ring-primary/10;
+}
+
+/* Content Area Transitions */
+.legacy-wrapper .tab-pane {
+  @apply hidden opacity-0 transition-all duration-500 translate-y-4;
+}
+
+.legacy-wrapper .tab-pane.active.in {
+  @apply block opacity-100 translate-y-0;
+  animation: slideInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Syllabus Cards Overhaul */
+.legacy-wrapper .orders-info h3,
+.legacy-wrapper h3:has(a) {
+  @apply border-none mb-4 mt-0;
+}
+
+.legacy-wrapper h3 a {
+  @apply flex items-center justify-between p-8 bg-white border border-gray-100 rounded-3xl shadow-sm hover:shadow-2xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-500 no-underline text-primary mt-0 relative overflow-hidden;
+}
+
+.legacy-wrapper h3 a::before {
+  content: "";
+  @apply absolute left-0 top-0 bottom-0 w-2 bg-secondary transform scale-y-0 transition-transform duration-500 origin-bottom;
+}
+
+.legacy-wrapper h3 a:hover::before {
+  @apply scale-y-100;
+}
+
+.legacy-wrapper h3 a strong { @apply font-black tracking-tight; }
+
+.legacy-wrapper h3 a::after {
+  content: "Download PDF →";
+  @apply text-xs font-black uppercase tracking-widest text-gray-400 transition-all duration-300 transform;
+}
+
+.legacy-wrapper h3 a:hover::after {
+  @apply text-primary translate-x-2;
+}
+
+/* Avatar Placeholder - Pro Edition */
+.legacy-wrapper img.fallback-avatar {
+  @apply w-[140px] h-[140px] rounded-full mx-auto object-cover border-8 border-gray-50 shadow-2xl shadow-gray-200/50 my-6 ring-2 ring-primary/5;
+}
+
+/* Breadcrumb Styling (Fixing the Home - Departments string) */
+.legacy-wrapper .nav-tabs li:empty {
+  @apply hidden;
+}
+
+.legacy-wrapper .profile-tabs {
+  @apply flex-row flex-wrap bg-transparent border-none p-0 static mb-16 gap-4;
+}
+
+.legacy-wrapper .profile-tabs li { @apply w-auto; }
+.legacy-wrapper .profile-tabs li a { @apply py-3 px-6 text-sm rounded-full; }
+
+/* Utilities */
+.legacy-wrapper .btn-primary {
+  @apply inline-flex items-center justify-center px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest bg-primary text-white hover:bg-primary/95 transition-all shadow-2xl shadow-primary/20 hover:-translate-y-1 my-6 cursor-pointer border-none;
+}

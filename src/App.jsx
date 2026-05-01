@@ -6,6 +6,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import PublicLayout from './components/PublicLayout';
+import LegacyPageWrapper from './pages/LegacyPageWrapper';
 import StudentDashboard from './pages/student/Dashboard';
 import AttendanceHistory from './pages/student/AttendanceHistory';
 import StudentProfile from './pages/student/Profile';
@@ -20,14 +22,21 @@ import SubjectManagement from './pages/admin/SubjectManagement';
 import AdminReports from './pages/admin/Reports';
 import AdminCMS from './pages/admin/CMS';
 import FacultyManagement from './pages/admin/FacultyManagement';
+import FloatingActions from './components/FloatingActions';
 
 function App() {
   return (
     <AuthProvider>
       <ToastProvider>
+        <FloatingActions />
         <Router>
           <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Public Routes */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/page/:slug" element={<LegacyPageWrapper />} />
+          </Route>
+          
           <Route path="/login" element={<Login />} />
           
           {/* Protected Routes */}
