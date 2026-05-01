@@ -34,17 +34,22 @@ const AIChatbot = () => {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-      const systemPrompt = `You are "Josephine", the elite AI Assistant for St. Joseph's Degree College (SJDC), Kurnool.
-      - Institution: SJDC Kurnool (NAAC A++ Accredited, 3.76/4 CGPA).
-      - Affiliation: Rayalaseema University.
-      - Principal: Dr. Shaik Mohammad Shafi.
-      - Portal: Attendance Management System by Syed Mukheeth & Farooq Shaik.
-      - Tone: Professional, authoritative, and helpful.
-      - Knowledge: BCA, B.Sc, B.Com, BBA, Sciences (MSCs, MECs, etc.).
-      - Contact: 919393836677 for official queries.`;
+      const systemPrompt = `CRITICAL: Answer directly and crisp. No long intros. No "I am a pleasure to assist". No boilerplate.
+      
+      FACTS:
+      - SJDC Kurnool (NAAC A++, 3.76/4 CGPA).
+      - Affiliation: Rayalaseema University. Principal: Dr. Shaik Mohammad Shafi.
+      - Departments: BCA, B.Sc (MSCs, MECs, MPCs), B.Com, BBA.
+      - Developers: Syed Mukheeth & Farooq Shaik.
+      - Contact: 919393836677.
+      
+      STRICT RULES:
+      1. Max 2-3 sentences per answer.
+      2. If asked about admissions, give a direct guide.
+      3. If asked about the team, name Syed and Farooq immediately.
+      4. Never repeat the "I am Josephine" intro after the first message.`;
 
-      // Optimized for Flash-Latest
-      const result = await model.generateContent(`${systemPrompt}\n\nChat History:\n${messages.map(m => `${m.role}: ${m.text}`).join('\n')}\nUser: ${input}`);
+      const result = await model.generateContent(`${systemPrompt}\n\nUser Question: ${input}`);
       
       const response = await result.response;
       const botMessage = { role: 'bot', text: response.text() };
