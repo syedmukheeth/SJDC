@@ -10,22 +10,6 @@ const AIChatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef(null);
 
-  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ 
-    model: "gemini-1.5-flash",
-    systemInstruction: `You are "Josephine", the official AI Assistant for St. Joseph's Degree College (SJDC), Kurnool.
-    SJDC is a prestigious NAAC A++ accredited college.
-    The current portal is an Attendance Management System built by Syed Mukheeth and Farooq Shaik.
-    Key Features:
-    - Student Portal: Attendance history, profile, and progress tracking.
-    - Faculty Portal: Attendance marking, student reports, and instructional dashboards.
-    - Admin Portal: User governance, database initialization, and CMS.
-    Technologies: React 19, Supabase, Tailwind CSS v4.
-    Your tone should be professional, welcoming, and knowledgeable.
-    Answer questions about college departments (CS, Commerce, Science, etc.), the system features, and general inquiries.
-    If you are asked about something you don't know, suggest contacting the college administration directly at 919393836677.`
-  });
-
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -35,26 +19,45 @@ const AIChatbot = () => {
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+      setMessages(prev => [...prev, { role: 'bot', text: "System Error: API Key missing. Please check .env file." }]);
+      return;
+    }
+
     const userMessage = { role: 'user', text: input };
     setMessages(prev => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
 
     try {
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      const systemPrompt = `You are "Josephine", the official AI Assistant for St. Joseph's Degree College (SJDC), Kurnool. 
+      SJDC is a prestigious NAAC A++ accredited college. 
+      This Attendance Management System was built by Syed Mukheeth and Farooq Shaik.
+      Be professional and helpful. If you don't know something, ask them to call 919393836677.`;
+
+      const chatHistory = messages.map(m => ({
+        role: m.role === 'bot' ? 'model' : 'user',
+        parts: [{ text: m.text }],
+      }));
+
       const chat = model.startChat({
-        history: messages.map(m => ({
-          role: m.role === 'bot' ? 'model' : 'user',
-          parts: [{ text: m.text }],
-        })),
+        history: chatHistory,
       });
 
-      const result = await chat.sendMessage(input);
+      // Include system prompt in the first message context if history is short
+      const promptWithContext = messages.length < 3 ? `${systemPrompt}\n\nUser Question: ${input}` : input;
+
+      const result = await chat.sendMessage(promptWithContext);
       const response = await result.response;
       const botMessage = { role: 'bot', text: response.text() };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
-      console.error("Gemini Error:", error);
-      setMessages(prev => [...prev, { role: 'bot', text: "I'm sorry, I'm having trouble connecting right now. Please try again later." }]);
+      console.error("Josephine AI Error:", error);
+      setMessages(prev => [...prev, { role: 'bot', text: "I'm having trouble connecting to my brain right now. Please check your internet or try again in a moment." }]);
     } finally {
       setIsLoading(false);
     }
