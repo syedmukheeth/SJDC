@@ -34,29 +34,27 @@ const AIChatbot = () => {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-      const systemPrompt = `CRITICAL: Answer directly and crisp. No long intros. No "I am a pleasure to assist". No boilerplate.
-      
-      FACTS:
-      - SJDC Kurnool (NAAC A++, 3.76/4 CGPA).
-      - Affiliation: Rayalaseema University. Principal: Dr. Shaik Mohammad Shafi.
-      - Departments: BCA, B.Sc (MSCs, MECs, MPCs), B.Com, BBA.
-      - Developers: Syed Mukheeth & Farooq Shaik.
-      - Contact: 919393836677.
-      
-      STRICT RULES:
-      1. Max 2-3 sentences per answer.
-      2. If asked about admissions, give a direct guide.
-      3. If asked about the team, name Syed and Farooq immediately.
-      4. Never repeat the "I am Josephine" intro after the first message.`;
+      const systemPrompt = `Direct & crisp. No filler. 2 sentences max. 
+      Context: SJDC Kurnool (NAAC A++), Rayalaseema Uni, Principal Shafi. Devs: Syed & Farooq.`;
 
-      const result = await model.generateContent(`${systemPrompt}\n\nUser Question: ${input}`);
+      const result = await model.generateContentStream(`${systemPrompt}\n\nQuestion: ${input}`);
       
-      const response = await result.response;
-      const botMessage = { role: 'bot', text: response.text() };
-      setMessages(prev => [...prev, botMessage]);
+      let fullText = "";
+      // Add empty bot message to start streaming into
+      setMessages(prev => [...prev, { role: 'bot', text: "" }]);
+
+      for await (const chunk of result.stream) {
+        const chunkText = chunk.text();
+        fullText += chunkText;
+        setMessages(prev => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1].text = fullText;
+          return newMessages;
+        });
+      }
     } catch (error) {
-      console.error("Senior Debug - API Error:", error);
-      setMessages(prev => [...prev, { role: 'bot', text: "I'm experiencing a high load on my servers right now. Please try again in 5 seconds!" }]);
+      console.error("Speed Debug - Error:", error);
+      setMessages(prev => [...prev, { role: 'bot', text: "Server busy. Try again!" }]);
     } finally {
       setIsLoading(false);
     }
