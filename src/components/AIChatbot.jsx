@@ -32,32 +32,26 @@ const AIChatbot = () => {
 
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-      const systemPrompt = `You are "Josephine", the official AI Assistant for St. Joseph's Degree College (SJDC), Kurnool. 
-      SJDC is a prestigious NAAC A++ accredited college. 
-      This Attendance Management System was built by Syed Mukheeth and Farooq Shaik.
-      Be professional and helpful. If you don't know something, ask them to call 919393836677.`;
+      const systemPrompt = `You are "Josephine", the elite AI Assistant for St. Joseph's Degree College (SJDC), Kurnool.
+      - Institution: SJDC Kurnool (NAAC A++ Accredited, 3.76/4 CGPA).
+      - Affiliation: Rayalaseema University.
+      - Principal: Dr. Shaik Mohammad Shafi.
+      - Portal: Attendance Management System by Syed Mukheeth & Farooq Shaik.
+      - Tone: Professional, authoritative, and helpful.
+      - Knowledge: BCA, B.Sc, B.Com, BBA, Sciences (MSCs, MECs, etc.).
+      - Contact: 919393836677 for official queries.`;
 
-      const chatHistory = messages.map(m => ({
-        role: m.role === 'bot' ? 'model' : 'user',
-        parts: [{ text: m.text }],
-      }));
-
-      const chat = model.startChat({
-        history: chatHistory,
-      });
-
-      // Include system prompt in the first message context if history is short
-      const promptWithContext = messages.length < 3 ? `${systemPrompt}\n\nUser Question: ${input}` : input;
-
-      const result = await chat.sendMessage(promptWithContext);
+      // Optimized for Flash-Latest
+      const result = await model.generateContent(`${systemPrompt}\n\nChat History:\n${messages.map(m => `${m.role}: ${m.text}`).join('\n')}\nUser: ${input}`);
+      
       const response = await result.response;
       const botMessage = { role: 'bot', text: response.text() };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
-      console.error("Josephine AI Error:", error);
-      setMessages(prev => [...prev, { role: 'bot', text: "I'm having trouble connecting to my brain right now. Please check your internet or try again in a moment." }]);
+      console.error("Senior Debug - API Error:", error);
+      setMessages(prev => [...prev, { role: 'bot', text: "I'm experiencing a high load on my servers right now. Please try again in 5 seconds!" }]);
     } finally {
       setIsLoading(false);
     }
