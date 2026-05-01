@@ -23,12 +23,14 @@ import AdminReports from './pages/admin/Reports';
 import AdminCMS from './pages/admin/CMS';
 import FacultyManagement from './pages/admin/FacultyManagement';
 import FloatingActions from './components/FloatingActions';
+import AIChatbot from './components/AIChatbot';
 
 function App() {
   return (
     <AuthProvider>
       <ToastProvider>
         <FloatingActions />
+        <AIChatbot />
         <Router>
           <Routes>
           {/* Public Routes */}
